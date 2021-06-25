@@ -29,7 +29,8 @@ import {
   jsx,
   withStyle,
   ThemeablePropTypes,
-  ThemeablePropValues
+  ThemeablePropValues,
+  CSSObject
 } from '@instructure/emotion'
 import { PositionPropTypes, mirrorPlacement } from '@instructure/ui-position'
 import { omitProps } from '@instructure/ui-react-utils'
@@ -51,7 +52,8 @@ type Props = {
   background?: 'default' | 'inverse'
   debug?: boolean
   makeStyles?: (...args: any[]) => any
-  styles?: any
+  styles?: CSSObject
+  style?: CSSObject
   margin: keyof typeof ThemeablePropValues.SPACING
   padding: keyof typeof ThemeablePropValues.SPACING
   shadow: keyof typeof ThemeablePropValues.SHADOW_TYPES
@@ -164,12 +166,10 @@ class ContextView extends Component<Props> {
   }
 
   componentDidMount() {
-    // @ts-expect-error ts-migrate(2722) FIXME: Cannot invoke an object which is possibly 'undefin... Remove this comment to see the full error message
-    this.props.makeStyles()
+    this.props.makeStyles?.()
   }
   componentDidUpdate() {
-    // @ts-expect-error ts-migrate(2722) FIXME: Cannot invoke an object which is possibly 'undefin... Remove this comment to see the full error message
-    this.props.makeStyles()
+    this.props.makeStyles?.()
   }
   get mirroredPlacement() {
     return mirrorPlacement(this.props.placement, '-')
@@ -192,8 +192,7 @@ class ContextView extends Component<Props> {
       padding,
       shadow,
       stacking,
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'style' does not exist on type 'Readonly<... Remove this comment to see the full error message
-      style, // eslint-disable-line react/prop-types
+      style,
       textAlign,
       styles
     } = this.props
@@ -201,9 +200,8 @@ class ContextView extends Component<Props> {
     return (
       <View
         {...omitProps(this.props, ContextView.propTypes)}
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element; style: any; css: any; b... Remove this comment to see the full error message
+        css={styles?.contextView}
         style={style}
-        css={styles.contextView}
         borderWidth="none"
         display="inline-block"
         as={as}
@@ -213,8 +211,7 @@ class ContextView extends Component<Props> {
         stacking={stacking}
       >
         <View
-          // @ts-expect-error ts-migrate(2322) FIXME:
-          css={styles.contextView__content}
+          css={styles?.contextView__content}
           display="block"
           borderRadius="medium"
           borderWidth="small"
@@ -231,7 +228,7 @@ class ContextView extends Component<Props> {
           shadow={shadow}
           textAlign={textAlign}
         >
-          <span css={styles.contextView__arrow} />
+          <span css={styles?.contextView__arrow} />
           {children}
         </View>
       </View>
