@@ -44,7 +44,12 @@ import { debounce } from '@instructure/debounce'
 import { px } from '@instructure/ui-utils'
 import { bidirectional } from '@instructure/ui-i18n'
 
-import { withStyle, jsx, ThemeablePropTypes } from '@instructure/emotion'
+import {
+  withStyle,
+  jsx,
+  ThemeablePropTypes,
+  Spacing
+} from '@instructure/emotion'
 
 import generateStyle from './styles'
 import generateComponentTheme from './theme'
@@ -61,8 +66,8 @@ type Props = {
   maxWidth?: string | number
   maxHeight?: string | number
   minHeight?: string | number
-  margin?: any // TODO: ThemeablePropTypes.spacing
-  padding?: any // TODO: ThemeablePropTypes.spacing
+  margin?: Spacing
+  padding?: Spacing
   textAlign?: 'start' | 'center' | 'end'
   elementRef?: (...args: any[]) => any
   tabOverflow?: 'stack' | 'scroll'
@@ -537,7 +542,6 @@ class Tabs extends Component<Props> {
         maxWidth={maxWidth}
         margin={margin}
         as="div"
-        // @ts-expect-error ts-migrate(2322) FIXME:
         css={styles.container}
       >
         <Focusable ref={this.handleFocusableRef}>
@@ -549,12 +553,10 @@ class Tabs extends Component<Props> {
               borderRadius="medium"
               withFocusOutline={focusVisible}
               shouldAnimateFocus={false}
-              // @ts-expect-error ts-migrate(2322) FIXME:
               css={styles.tabs}
             >
               <View
                 as="div"
-                // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: any[]; as: string; role: string;... Remove this comment to see the full error message
                 role="tablist"
                 css={styles.tabList}
                 aria-label={screenReaderLabel}
