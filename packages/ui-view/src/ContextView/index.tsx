@@ -29,8 +29,10 @@ import {
   jsx,
   withStyle,
   ThemeablePropTypes,
-  ThemeablePropValues,
-  CSSObject
+  CSSObject,
+  Shadow,
+  Spacing,
+  Stacking
 } from '@instructure/emotion'
 import { PositionPropTypes, mirrorPlacement } from '@instructure/ui-position'
 import { omitProps } from '@instructure/ui-react-utils'
@@ -54,10 +56,10 @@ type Props = {
   makeStyles?: (...args: any[]) => any
   styles?: CSSObject
   style?: CSSObject
-  margin: keyof typeof ThemeablePropValues.SPACING
-  padding: keyof typeof ThemeablePropValues.SPACING
-  shadow: keyof typeof ThemeablePropValues.SHADOW_TYPES
-  stacking: keyof typeof ThemeablePropValues.STACKING_TYPES
+  margin: Spacing
+  padding: Spacing
+  shadow: Shadow
+  stacking: Stacking
   placement: unknown //TODO: fix this
 }
 
